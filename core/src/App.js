@@ -15,19 +15,15 @@ function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        setMovies(data.entries  );
+        setMovies(data.entries);
     });
-  },[])
+  },[]);
 
   
-  return <div> 
-    {movies.length > 0 && 
-      movies.map((movie) => 
-    <Movie key={movie.entries} {...movie}/>
-    )}
-    </div>
-
-}
+  return movies.map((movie, index) => 
+    <Movie key={index} {...movie}/>
+  );
+};
 
 
 export default App;
