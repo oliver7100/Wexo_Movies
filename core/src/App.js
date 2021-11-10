@@ -5,22 +5,12 @@ import Movie from './components/Movie';
 
 const FEATURED_API = "https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas?form=json&lang=da&byProgramType=series"
 
-const SEARCH_API = "curl --location --request GET 'https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas/106608168011?form=json'"
+const SEARCH_API = 'https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas/106608168011?form=json'
 
 function App() {
   const [movies, setMovies] = useState([]); 
-  const [moviesGenre, setMoviesGenre] = useState({
-  Horror: [],
-  Action:[],
-  Comedy:[],
-  Thriller:[],
-  War:[],
-  Romance:[],
-  Drama:[],
-  Crime:[],
-  Documentary:[]
-  });
-
+  const [moviesGenre, setMoviesGenre] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch(FEATURED_API)
@@ -31,29 +21,69 @@ function App() {
     });
   },[]);
 
+  
+  const handleOnSubmit = (e) =>{
+    e.preventDefault();
+    
+    fetch(FEATURED_API + searchTerm)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setMovies(data.entries);
+    });
+  };
 
+  let genres = {}
   
   function sortGenres(movie){
     movie["plprogram$tags"].map(tag=>{
-      console.log(tag['plprogram$title']) 
-      if(tag['plprogram$title'] in ['plprogram$tags'] )
+
+      if(!genres.hasOwnProperty(tag['plprogram$title']) )
       {
-        moviesGenre[tag['plprogram$title']].push(movie);
+        genres[tag['plprogram$title']] = []
 
       }
-      {
+      genres[tag['plprogram$title']].push(movie);
 
-      }
-
-
-
-      console.log(moviesGenre);
     })
   }
-  movies.map(sortGenres);
-  
-  return movies.map((movie, index) => 
-    <Movie key={index} {...movie}/>
+  if(Object.keys(moviesGenre).length == 0)
+  {
+    //movies.map(sortGenres);
+    //setMoviesGenre(genres);
+
+  }
+  console.log(moviesGenre);
+
+  const handleOnChange = (e) => {
+    setSearchTerm(e.target.value);
+
+  }
+
+  return(
+    <>
+    <header>
+    <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Genres</a>
+    <div class="dropdown-content">
+
+    </div>
+  </li>
+      <form onSubmit={handleOnSubmit}>
+      <input 
+        className="search" 
+        type="text" 
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleOnChange}
+      />
+      </form>
+    </header>
+    <div className="movie-container">
+      {movies.map((movie, index) => 
+          <Movie key={index} {...movie}/> )}
+    </div>
+    </>
   );
 };
 
