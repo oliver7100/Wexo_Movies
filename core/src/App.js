@@ -2,6 +2,7 @@ import React, {useEffect , useState} from 'react';
 import './App.css';
 import Movie from './components/Movie';
 
+
 const FEATURED_API = "https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas?form=json&lang=da&byProgramType=series"
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     });
   },[]);
 
+  
   let genres = {}
   
   function sortGenres(movie){
@@ -44,11 +46,14 @@ function App() {
   return( 
   <>
   <header>
-    
-  </header>
+   </header>
   <div className="movie-container">
-    {movies.map((movie, index) => 
-        <Movie key={index} {...movie}/> )}
+    {
+    movies.map((movie, index) => 
+   
+    <Movie key={index} {...movie}/> )
+        
+    }
   </div>
   </>
 );

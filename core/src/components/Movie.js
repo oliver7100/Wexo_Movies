@@ -1,7 +1,16 @@
 import React from "react";
+import {BrowserRouter as Router,Route} from 'react-router-dom';
+import MoviesView from "./MoviesView";
+import noimg from './images/noimg.jpg'
+
 
 // desired thumbnail dimensions
-const IMG_API = "orig-93x165";
+const IMG_API = "orig-1080x1920" 
+
+if(!IMG_API == "orig-1080x1920")
+{
+  IMG_API == noimg
+}
 
 const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, title, guid, plprogram$ratings}) => {
     // try to grab movie thumbnail url. Default to null if desired dimensions is not defined
@@ -11,7 +20,6 @@ const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, tit
     ? plprogram$thumbnails[IMG_API]['plprogram$url'] 
     : null;
 
-    console.log(plprogram$ratings.length);
     const movieRatings = plprogram$ratings.length > 0
     ?  plprogram$ratings[0]['plprogram$rating'] : "This Movie hasn't been rated yet." ;
     
@@ -25,8 +33,15 @@ const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, tit
         movieTitle = plprogram$titleLocalized.da
     }
 
+    //Reference to App.js with routes towards MoviesView, to assemble images and display them if matching the
+    //movieTitle matches to the route. 
+
+    //Also the overall HTML styling is written down here with the images display and descripton. 
     return <div className="movie">
-      <img src={thumbnail} alt={movieTitle}/>
+  
+
+      <img src={thumbnail} alt={movieTitle}/> 
+     
         <div className="movie-info">
             <h3>{movieTitle}</h3>
           <p>{movieRatings}</p>
