@@ -1,16 +1,24 @@
 import React from "react";
-import {BrowserRouter as Router,Route} from 'react-router-dom';
 import MoviesView from "./MoviesView";
-import noimg from './images/noimg.jpg'
+import Image from "../images/imagereplacer.jpg"
+import {
+  Link,
+} from "react-router-dom";
+
+
 
 
 // desired thumbnail dimensions
-const IMG_API = "orig-1080x1920" 
+const IMG_API = "orig-1080x1920";
 
-if(!IMG_API == "orig-1080x1920")
+//Replace thumbnail with an image that displays, "This movie doesnt have any thumbnail". Duo to the API's movielist
+//Doesnt contain the right dimension I wish for. As a thumbnail.
+if(IMG_API == null)
 {
-  IMG_API == noimg
+  <img src={Image} alt="No image"/> 
 }
+
+//Creating search parameters for the index.
 
 const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, title, guid, plprogram$ratings}) => {
     // try to grab movie thumbnail url. Default to null if desired dimensions is not defined
@@ -33,23 +41,30 @@ const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, tit
         movieTitle = plprogram$titleLocalized.da
     }
 
-    //Reference to App.js with routes towards MoviesView, to assemble images and display them if matching the
-    //movieTitle matches to the route. 
+  
 
     //Also the overall HTML styling is written down here with the images display and descripton. 
     return <div className="movie">
-  
+      
+      <Link to={`/MovieDisplay/${movieTitle}`}>
 
       <img src={thumbnail} alt={movieTitle}/> 
-     
+      </Link>
+
         <div className="movie-info">
-            <h3>{movieTitle}</h3>
+          <h3>
+              <h3>{movieTitle}  </h3>
+          </h3>
           <p>{movieRatings}</p>
         </div>
 
       <div className="movie-over">
-        <h2>Overview</h2>
+      <Link to={`/MovieDisplay/${movieTitle}`}>
+
+        <h2>Description</h2>
+        </Link>
         <p>{movieDescription}</p>
+
       </div>
     </div>
 };

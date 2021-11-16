@@ -3,7 +3,7 @@
   }
   
   body {
-   background-color: #22254b;
+   background-color: #364038;
    color: #fff;
    display: flex;
    flex-direction: column;
@@ -18,7 +18,7 @@
 }
 
   header{
-    background-color: #373b69;
+    background-color: #101010;
     display: flex;
     padding: 1rem;
     justify-content: flex-end;
@@ -26,7 +26,7 @@
   
   .search{
     background-color: transparent;
-      border: 2px solid #22254b;
+      border: 2px solid white;
       color: #fff;
       border-radius: 50px;
       font-family: inherit;
@@ -35,7 +35,7 @@
   
   .movie{
     
-      background-color: #373b69;
+      background-color: #101010;
       border-radius: 3px;
       box-shadow: 3px 3px 5px 
       rgba(0, 0, 0.1);
@@ -78,7 +78,7 @@
       border-top-right-radius: 3px;
       box-shadow: 0px -3px 5px 
       rgba(0, 0, 0.1);
-      color: #22254b;
+      color: #364038;
       padding: 1rem;
       position: absolute;
       bottom: 0;
@@ -88,6 +88,7 @@
       max-height: 100%;
       transform: translateY(102%);
       transition: transform 0.3s ease-in-out;
+      
   }
 
 
@@ -112,7 +113,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #364038;
   }
   
   li {
