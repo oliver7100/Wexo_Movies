@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import Movie from './components/Movie';
-import {Link} from "react-router-dom";
+import './App.css'
 
 const FEATURED_API = "https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas?form=json&lang=da&byProgramType=series"
 
 function App() {
   const [movies, setMovies] = useState([]); 
   const [moviesGenre, setMoviesGenre] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+
 
 //We're feitching the data from the API, and using console.log to check the API's information we get  
 //in the console
@@ -17,6 +19,7 @@ function App() {
       .then(data => {
         console.log(data);
         setMovies(data.entries);
+        setLoading(false);
     });
   },[]);
 
@@ -41,18 +44,41 @@ function App() {
 
     })
   }
-  if(Object.keys(moviesGenre).length ==  0)
-  {
 
-    console.log(genres)
-    movies.map(sortGenres);
+  console.log(moviesGenre);
+  
+  const handleOnSubmit = (e) => {
+    e.preventDeafult();
+
+
+  };
+
+  const handleOnChange = (e) =>{
+    setSearchTerm(e.target.value);
+
+    const movieAPI = `https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas/${searchTerm}?form=json`
+
+    fetch(movieAPI)
+      .then(res => res.json())
+      .then(data => {
+        setMovies(data.results);
+    });
+  
 
   }
-  console.log(moviesGenre);
 
   return( 
   <>
-  <header>
+  <header class="appheader">
+    <from onSubmit={handleOnSubmit}>
+    <input
+    className="search"
+    type="search"
+    placeholder="Search..."
+    value={searchTerm}
+    onChange={handleOnChange}
+    />
+    </from>
    </header>
   <div className="movie-container">
     {
