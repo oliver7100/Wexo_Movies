@@ -33,7 +33,7 @@ const Movie = ({plprogram$titleLocalized, plprogram$thumbnails, description, tit
     }
 
 
-    
+    //Vote class for styling purposes, and user interface. 
     const setVoteClass = (vote) => {
       if(vote >= 8){
         return "green";

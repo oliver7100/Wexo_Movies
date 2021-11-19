@@ -46,6 +46,14 @@ function App() {
   }
 
   console.log(moviesGenre);
+
+  if(Object.keys(moviesGenre).length ==  0)
+  {
+
+    console.log(genres)
+    movies.map(sortGenres);
+
+  };
   
   const handleOnSubmit = (e) => {
     e.preventDeafult();

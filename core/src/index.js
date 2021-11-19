@@ -7,6 +7,8 @@ import {
 import App from "./App";
 import MovieDisplay from "./routes/MovieDisplay";
 
+
+//Rooting to moviedisplay through ID, and incase the parameter is wrote wrong. 
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>

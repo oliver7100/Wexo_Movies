@@ -7,6 +7,7 @@ export default () => {
     const [movie, setMovie] = useState([]); 
     const [loading, setLoading] = useState(true);
 
+    //Parameter call for a single movie fetch.
 const { id } = useParams();
 const movieAPI = `https://feed.entertainment.tv.theplatform.eu/f/jGxigC/bb-all-pas/${id}?form=json`
 
@@ -20,7 +21,7 @@ useEffect(() => {
     });
   },[]);
 
-  
+  //The img res i wish for when displaying the whole background. 
 const imgRes = "orig-1080x1920";
 return (
 <div>
